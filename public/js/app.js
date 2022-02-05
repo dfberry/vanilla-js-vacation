@@ -73,43 +73,22 @@ const get = (model, domain, done) => {
     });
 };
 
-const app = document.getElementById("app");
 
-/*
-const processHouses = (model) => {
-  model.houses.forEach(house => model.houseIdx[house.id] = house);
-  app.innerText = house.name;
-  app.appendChild(renderHouse(house));
-};
 
-const run = (model) => async (model) => {
-  console.log(model);
-  await get(model, "houses", processHouses);
-  console.log(model);
-};
 
-const run = (model) => get(model, "users", () =>
-  get(model, "posts",
-    () => {
-      model.users.forEach(user => model.userIdx[user.id] = user);
-      app.innerText = '';
-      model.posts.forEach(post =>
-        app.appendChild(renderPost(post, model.userIdx[post.userId])));
-    }));
 
-*/
-
-const run = (model) => get(model, "houses", () => {
-
-  console.log(model.houses);
-
+const initialize = (app, model) => get(model, "houses", () => {
   model.houses.forEach(house => {
-    //app.innerText = '';
     app.appendChild(renderHouse(house));
   });
 });
 
 
-app.appendChild(Wrapper.generate("button", "Load").click(() => run({
-  userIdx: {}
-})).element);
+// app
+(() => {
+  const model = {};
+  const app = document.getElementById("app");
+  initialize(app, model);
+})()
+
+
